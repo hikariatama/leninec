@@ -46,6 +46,9 @@ async def websocket_endpoint(websocket: WebSocket):
         vm.stack.push(inp)
         await websocket.send_text(escape_html(f"@input {inp}"))
         await vm.run()
+        if not vm.stack.is_empty:
+            await websocket.send_text(escape_html(f"@output {vm.stack.pop()}"))
+
         await websocket.send_text(escape_html("@finish"))
     except leninec.errors.VMError as e:
         await websocket.send_text(escape_html(f"@error {e.__class__.__name__}: {e}"))

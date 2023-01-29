@@ -560,6 +560,7 @@ stack = [f(stack.pop())]  # output in stack
             document.querySelector(".run-btn").innerHTML = "Evaluate!";
         }
 
+        var inp = "";
 
         function run(code) {
             document.querySelector(".result").innerHTML = "leninec@vm:# $ ./run";
@@ -591,9 +592,12 @@ stack = [f(stack.pop())]  # output in stack
                 } else if (event.data.startsWith("@finish")) {
                     finish();
                 } else if (event.data.startsWith("@error")) {
-                    update_res(`<span class="error">${event.data.split(" ").slice(1).join(" ")}</span>`);
+                    update_res(`./run ${inp}<br><span class="error">${event.data.split(" ").slice(1).join(" ")}</span>`);
                 } else if (event.data.startsWith("@input")) {
-                    update_res(`./run ${event.data.split(" ").slice(1).join(" ")}`);
+                    inp = event.data.split(" ").slice(1).join(" ");
+                    update_res(`./run ${inp}<br>`);
+                } else if (event.data.startsWith("@output")) {
+                    update_res(`./run ${inp}<br>Output: ${event.data.split(" ").slice(1).join(" ")}<br>leninec@vm:# $ `);
                 }
             };
 
