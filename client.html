@@ -371,6 +371,7 @@
         <div class="run-btn">Evaluate!</div>
         <div class="wrapper-speed">
             <select>
+                <option value="0.25">0.25x</option>
                 <option value="0.5">0.5x</option>
                 <option value="1" selected>1.0x</option>
                 <option value="2">2.0x</option>
@@ -568,7 +569,7 @@ stack = [f(stack.pop())]  # output in stack
             socket.onopen = (e) => {
                 console.log("[open] Connection established");
                 console.log("Sending to server");
-                var speed_map = { "1": 0.15, "2": 0.075, "5": 0.03, "0": 0, "0.5": 0.3 };
+                var speed_map = { "1": 0.15, "2": 0.075, "5": 0.03, "0": 0, "0.5": 0.3 , "0.25": 0.6};
                 socket.send("@delay " + speed_map[document.querySelector(".wrapper-speed select").value]);
                 socket.send(code);
             };
@@ -674,7 +675,7 @@ stack = [f(stack.pop())]  # output in stack
 
         document.querySelector(".wrapper-speed select").addEventListener("change", function () {
             localStorage.setItem("speed", document.querySelector(".wrapper-speed select").value);
-            document.querySelector(".pointer").style.transitionDuration = { "1": ".2", "2": ".1", "5": ".04", "0": "0", "0.5": ".4" }[this.value] + "s";
+            document.querySelector(".pointer").style.transitionDuration = { "1": ".1", "2": ".05", "5": ".05", "0": "0", "0.5": ".2", "0.25": ".3"}[this.value] + "s";
         });
     </script>
     <br><br><br>
