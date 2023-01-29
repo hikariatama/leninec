@@ -109,7 +109,7 @@ class VM:
 
         return True
 
-    async def run(self, timeout: int = 120):
+    async def run(self, timeout: int = 300):
         """Run VM code. If timeout is specified, raises TimeoutExceededError"""
         if not self.instructions:
             return
