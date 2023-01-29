@@ -478,13 +478,14 @@ somename!</code>
                 In the beginning of evaluation of the program, there will be one random number on the stack. Treat it as test input
             for your program. For example, try to write the program, that will execute the following Python code:<br>
             <pre>
-<code class="language-python">def f(n: int) -> int:
+<code class="language-python">stack = [40]  # input data
+def f(n: int) -> int:
     if n == 1:
         return 1
     
     return sum(f(i) for i in range(1, n) if n % i == 0) + n
 
-print(f(input()))
+stack = [f(stack.pop())]  # output in stack
 </code>
             </pre>
             </span>
