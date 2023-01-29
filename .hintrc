@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "axe/forms": [
+      "default",
+      {
+        "select-name": "off"
+      }
+    ],
+    "compat-api/html": [
+      "default",
+      {
+        "ignore": [
+          "pre[contenteditable=plaintext-only]"
+        ]
+      }
+    ],
+    "no-inline-styles": "off"
+  }
+}
