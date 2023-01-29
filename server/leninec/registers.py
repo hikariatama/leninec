@@ -33,7 +33,7 @@ class Registers(dict):
 
     def sub(self, a: str, b: str):
         self[a] -= self[b]
-    
+
     def to_str(self) -> str:
         """
         Return a string representation of the registers.

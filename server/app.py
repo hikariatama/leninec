@@ -1,10 +1,13 @@
 import asyncio
 import functools
 import random
+
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+
 import leninec
 
 app = FastAPI(docs_url="/")
+
 
 def escape_html(text: str) -> str:
     return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
@@ -39,7 +42,9 @@ async def websocket_endpoint(websocket: WebSocket):
             data = await websocket.receive_text()
 
         vm.update_code(data)
-        vm.stack.push(random.randint(1, 100))
+        inp = random.randint(1, 100)
+        vm.stack.push(inp)
+        await websocket.send_text(escape_html(f"@input {inp}"))
         await vm.run()
         await websocket.send_text(escape_html("@finish"))
     except leninec.errors.VMError as e:

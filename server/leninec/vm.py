@@ -1,4 +1,5 @@
 import asyncio
+import logging
 import time
 from collections import deque
 
@@ -21,10 +22,12 @@ from .errors import (
 from .registers import Registers
 from .stack import Stack
 
-import logging
-
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+
+# Original idea behing this interpreter belongs to UgraCTF
+# organizers. It was re-implemented from scratch by me.
 
 
 class VM:
@@ -134,13 +137,13 @@ class VM:
                     for hook in self._position_change_hooks:
                         await hook(pos)
             elif cmd == "jmp":
-                a, = args
+                (a,) = args
                 a = a[1:-1]
                 pos = self._labels[a] - 1
                 for hook in self._position_change_hooks:
                     await hook(pos)
             elif cmd == "pop":
-                a, = args
+                (a,) = args
                 if self.stack.is_empty:
                     raise PopFromEmptyStackError("Cannot pop from empty stack")
 
@@ -152,7 +155,7 @@ class VM:
                     await hook(self.registers)
 
             elif cmd == "push":
-                a, = args
+                (a,) = args
                 self.stack.push(self.registers[a])
                 for hook in self._stack_change_hooks:
                     await hook(self.stack)
@@ -338,4 +341,3 @@ class VM:
         for label in used_labels:
             if label not in self._labels:
                 raise UndefinedLabelError(f"Label {label} is not defined")
-        

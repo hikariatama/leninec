@@ -591,6 +591,8 @@ print(f(input()))
                     finish();
                 } else if (event.data.startsWith("@error")) {
                     update_res(`<span class="error">${event.data.split(" ").slice(1).join(" ")}</span>`);
+                } else if (event.data.startsWith("@input")) {
+                    update_res(`./run ${event.data.split(" ").slice(1).join(" ")}`);
                 }
             };
 
