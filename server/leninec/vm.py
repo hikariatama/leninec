@@ -121,7 +121,7 @@ class VM:
         }
 
         pos = 0
-        start = time.monotonic()
+        start = time.perf_counter()
         while self.check_state() and pos < len(self.instructions):
             cmd, *args = self.instructions[pos]
             if cmd in self.registers.AVAILABLE_INSTRUCTIONS:
@@ -160,7 +160,7 @@ class VM:
                 for hook in self._stack_change_hooks:
                     await hook(self.stack)
 
-            if timeout and time.monotonic() - start > timeout:
+            if timeout and time.perf_counter() - start > timeout:
                 raise TimeoutExceededError(f"Timeout of {timeout} seconds exceeded")
 
             pos += 1

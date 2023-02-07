@@ -1,0 +1,198 @@
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Сибирский Лéнинец II</title>
+	<link rel="shortcut icon" type="image/x-icon" href="https://img.icons8.com/emoji/48/null/bear-emoji.png" />
+	<link rel="stylesheet" type="text/css"
+		href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-darcula.min.css" />
+	<link rel="stylesheet" type="text/css"
+		href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.css" />
+	<link rel="stylesheet" type="text/css" href="/static/style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+	<div class="flex">
+		<lottie-player src="https://assets5.lottiefiles.com/packages/lf20_sxh1eqfy.json" background="transparent"
+			speed="1" style="width: 100px; height: 100px;" loop autoplay></lottie-player>
+		<div class="title">Syberian Leninec II</div>
+	</div>
+	<div class="stack-wrapper">
+		<h1>Stack:</h1>
+		<div class="stack"></div>
+	</div>
+	<div class="flex">
+		<div class="registers-wrapper">
+			<h1>Registers:</h1>
+			<div class="registers">
+				<div class="register">
+					<div class="name">a</div>
+					<div class="value">0</div>
+				</div>
+				<div class="register">
+					<div class="name">b</div>
+					<div class="value">0</div>
+				</div>
+				<div class="register">
+					<div class="name">c</div>
+					<div class="value">0</div>
+				</div>
+				<div class="register">
+					<div class="name">d</div>
+					<div class="value">0</div>
+				</div>
+			</div>
+		</div>
+		<div class="run-btn">Evaluate!</div>
+		<div class="wrapper-speed">
+			<select>
+				<option value="0.25">0.25x</option>
+				<option value="0.5">0.5x</option>
+				<option value="1" selected>1.0x</option>
+				<option value="2">2.0x</option>
+				<option value="5">5.0x</option>
+				<option value="0">∞ (instant)</option>
+			</select>
+		</div>
+		<div class="wrapper-result">
+			<div class="result">leninec@vm:# $</div>
+		</div>
+	</div>
+
+	<div class="flex">
+		<pre class="code-window line-numbers" contenteditable="plaintext-only">
+<div class="pointer"></div>
+<code class="language-leninec">add a 10
+add b 20
+add c 30
+add d 40
+push a
+push b
+push c
+push d</code></pre>
+		<div class="docs-wrapper">
+			<div class="flex">
+				<lottie-player src="https://assets1.lottiefiles.com/packages/lf20_vvx2gjpt.json"
+					background="transparent" speed="1" style="width: 50px; height: 50px; padding: 6px;" loop
+					autoplay></lottie-player>
+				<div class="subtitle">Task</div>
+			</div>
+			<br>
+			<span style="color: #fff;">
+				In the beginning of evaluation, there will be one random number on the stack. It is a
+				test input for your program.
+				<b>Write the program, that will execute the following Python code:</b>
+				<br />
+				<pre>
+<code class="language-python">stack = [40]  # input data
+def f(n: int) -> int:
+    if n == 1:
+        return 1
+    
+    return sum(f(i) for i in range(1, n) if n % i == 0) + n
+
+stack = [f(stack.pop())]  # output in stack
+</code></pre>
+				<hr>
+				<div class="flex">
+					<lottie-player src="https://assets6.lottiefiles.com/packages/lf20_bxfumrr3.json"
+						background="transparent" speed="1" style="width: 50px; height: 50px; padding: 6px;" loop
+						autoplay></lottie-player>
+					<div class="subtitle">Guide</div>
+				</div>
+				<br />
+				<table>
+					<tr>
+						<th>instruction</th>
+						<th>description</th>
+					</tr>
+					<tr>
+						<td><span class="token instruction">mov</span> <span class="token string">a</span> <span
+								class="token define">b</span></td>
+						<td>assign value of <span class="token define">b</span> to <span class="token string">a</span>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="token instruction">add</span> <span class="token string">a</span> <span
+								class="token define">b</span></td>
+						<td>add <span class="token define">b</span> to <span class="token string">a</span></td>
+					</tr>
+					<tr>
+						<td><span class="token instruction">sub</span> <span class="token string">a</span> <span
+								class="token define">b</span></td>
+						<td>subtract <span class="token define">b</span> from <span class="token string">a</span></td>
+					</tr>
+					<tr>
+						<td><span class="token instruction">mul</span> <span class="token string">a</span> <span
+								class="token define">b</span></td>
+						<td>multiply <span class="token string">a</span> by <span class="token define">b</span></td>
+					</tr>
+					<tr>
+						<td><span class="token instruction">div</span> <span class="token string">a</span> <span
+								class="token define">b</span></td>
+						<td>divide <span class="token string">a</span> by <span class="token define">b</span></td>
+					</tr>
+					<tr>
+						<td><span class="token instruction">push</span> <span class="token string">a</span></td>
+						<td>push value of <span class="token string">a</span> to stack</td>
+					</tr>
+					<tr>
+						<td><span class="token instruction">pop</span> <span class="token string">a</span></td>
+						<td>pop value from stack and assign it to <span class="token string">a</span></td>
+					</tr>
+					<tr>
+						<td><span class="token instruction">je</span> <span class="token define">a</span> <span
+								class="token string">"label"</span></td>
+						<td>if <span class="token define">a</span> is equal to <span class="token number">zero</span>,
+							jump
+							to <span class="token string">"label"</span></td>
+					</tr>
+					<tr>
+						<td><span class="token instruction">jl</span> <span class="token define">a</span> <span
+								class="token string">"label"</span></td>
+						<td>if <span class="token define">a</span> is less than <span class="token number">zero</span>,
+							jump
+							to <span class="token string">"label"</span></td>
+					</tr>
+					<tr>
+						<td><span class="token instruction">jg</span> <span class="token define">a</span> <span
+								class="token string">"label"</span></td>
+						<td>if <span class="token define">a</span> is greater than <span
+								class="token number">zero</span>,
+							jump to <span class="token string">"label"</span></td>
+					</tr>
+					<tr>
+						<td><span class="token instruction">jmp</span> <span class="token string">"label"</span></td>
+						<td>jump to <span class="token string">"label"</span></td>
+					</tr>
+				</table>
+				<pre>
+<code class="language-leninec">// You can define snippets:
+#define somename
+    jmp "{}somelabel"
+    somelabel:
+        push 1
+    pop a
+#enddefine
+// Now call the defined snippet:
+somename!</code></pre>
+			</span>
+		</div>
+	</div>
+	<br />
+	<br />
+	<br />
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/prism.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/components/prism-python.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+	<script src="/static/script.js"></script>
+</body>
+
+</html>
