@@ -1,7 +1,7 @@
 import functools
 import random
 
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request
+from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -78,7 +78,7 @@ async def websocket_endpoint(websocket: WebSocket):
                         )
                     )
                     break
-            
+
             test += 1
         else:
             await websocket.send_text(
@@ -87,7 +87,9 @@ async def websocket_endpoint(websocket: WebSocket):
 
         await websocket.send_text(escape_html("@f"))
     except leninec.errors.TimeoutExceededError:
-        await websocket.send_text(escape_html(f"@e TL (Time-Limit Exceeded) test#{test}"))
+        await websocket.send_text(
+            escape_html(f"@e TL (Time-Limit Exceeded) test#{test}")
+        )
     except leninec.errors.VMError as e:
         await websocket.send_text(escape_html(f"@e {e.__class__.__name__}: {e}"))
     except WebSocketDisconnect:

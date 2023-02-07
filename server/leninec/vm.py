@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import time
+import typing
 from collections import deque
 
 from .errors import (
@@ -31,16 +32,21 @@ logger = logging.getLogger(__name__)
 
 
 class VM:
-    MAX_STACK_SIZE = 1000
-    MAX_VALUE = 2**31
-    MAX_CODE_SIZE = 2048
-    VALID_NUMBERS = set(str(n) for n in range(-999, 1000))
-    delay = 0.15
+    MAX_STACK_SIZE: int = 1000
+    MAX_VALUE: int = 2**31
+    MAX_CODE_SIZE: int = 2048
+    VALID_NUMBERS: set = set(map(str, range(-999, 1000)))
 
     def __init__(self):
-        self._position_change_hooks = []
-        self._registers_change_hooks = []
-        self._stack_change_hooks = []
+        self._position_change_hooks: typing.List[callable] = []
+        self._registers_change_hooks: typing.List[callable] = []
+        self._stack_change_hooks: typing.List[callable] = []
+        self._labels: dict = {}
+
+        self.instructions: list = []
+        self.registers: Registers = None
+        self.stack: Stack = None
+        self.delay: float = 0.15
 
     def add_position_change_hook(self, hook: callable):
         """
@@ -101,11 +107,11 @@ class VM:
         self.registers = Registers("abcd")
 
     def check_state(self) -> bool:
-        if self.stack.size > VM.MAX_STACK_SIZE:
-            raise StackOverflowError(f"Stack size exceeded {VM.MAX_STACK_SIZE}")
+        if self.stack.size > self.MAX_STACK_SIZE:
+            raise StackOverflowError(f"Stack size exceeded {self.MAX_STACK_SIZE}")
 
-        if any(abs(v) > VM.MAX_VALUE for v in self.registers.values()):
-            raise ValueOverflowError(f"Value exceeded {VM.MAX_VALUE}")
+        if any(abs(v) > self.MAX_VALUE for v in self.registers.values()):
+            raise ValueOverflowError(f"Value exceeded {self.MAX_VALUE}")
 
         return True
 
@@ -184,7 +190,7 @@ class VM:
         :param arg: argument to check
         :return: True if arg is a valid number, False otherwise
         """
-        return arg in VM.VALID_NUMBERS
+        return arg in self.VALID_NUMBERS
 
     def _check_reg_or_num(self, arg: str) -> bool:
         """
@@ -259,10 +265,10 @@ class VM:
 
         lines = deque(line.strip() for line in code.splitlines())
         while lines:
-            if len(self.instructions) > VM.MAX_CODE_SIZE:
+            if len(self.instructions) > self.MAX_CODE_SIZE:
                 raise CodeTooBigError(
                     f"Code size is {len(self.instructions)} while max is"
-                    f" {VM.MAX_CODE_SIZE}"
+                    f" {self.MAX_CODE_SIZE}"
                 )
 
             line = lines.popleft().lower().strip()
@@ -275,16 +281,16 @@ class VM:
                     raise UndefinedMacroError(f"Macro {name} is not defined")
 
                 label_prefix = f"{name}-{defines_count[name]}#"
-                for l in content:
-                    if l.endswith(":"):
-                        l = label_prefix + l
-                    elif "{}" in l:
-                        if l.count("{}") > 1:
+                for line_ in content:
+                    if line_.endswith(":"):
+                        line_ = label_prefix + line_
+                    elif "{}" in line_:
+                        if line_.count("{}") > 1:
                             raise InvalidMacroError("Too many '{}' in macro")
 
-                        l = l.format(label_prefix)
+                        line_ = line_.format(label_prefix)
 
-                    lines.appendleft(l)
+                    lines.appendleft(line_)
 
                 defines_count[name] += 1
             elif line.startswith("#define"):  # Define macro

@@ -11,7 +11,7 @@
 ![Stars](https://img.shields.io/github/stars/hikariatama/leninec?style=flat)
 [![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-![image](https://user-images.githubusercontent.com/36935426/217181628-b496688e-21c2-4ef2-8c17-b11c60f3168c.png)
+![demo](https://user-images.githubusercontent.com/36935426/217303147-85bccced-3ed8-4e92-a524-59e6c296f425.png)
 
 ## Installation
 

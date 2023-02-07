@@ -13,7 +13,7 @@ push 5"""
         while True:
             data = await wss.recv()
             print(data)
-            if data == "@finish":
+            if data == "@f":
                 break
 
 
