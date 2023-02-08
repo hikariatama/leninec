@@ -1,4 +1,5 @@
-const SOCKET_URL = `wss://${window.location.host}/ws`;
+const PROTOCOL = window.location.protocol === "https:" ? "wss" : "ws";
+const SOCKET_URL = `${PROTOCOL}://${window.location.host}/ws`;
 
 window.onload = () => {
     if (localStorage.getItem('speed')) {
