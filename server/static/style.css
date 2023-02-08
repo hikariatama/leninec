@@ -315,6 +315,10 @@ select {
     color: var(--color-red);
 }
 
+.madein {
+    display: inline;
+}
+
 
 @media screen and (max-width: 736px) {
     .title_wrapper {
