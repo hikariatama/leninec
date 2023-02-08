@@ -314,3 +314,42 @@ select {
 .error {
     color: var(--color-red);
 }
+
+
+@media screen and (max-width: 736px) {
+    .title_wrapper {
+        width: 96%;
+        margin-left: 2%;
+    }
+
+    .madein,
+    .russia {
+        display: none;
+    }
+
+    .title {
+        display: inline;
+        font-size: 22px;
+    }
+
+    .content,
+    .code_content {
+        display: block;
+    }
+
+    .registers-wrapper,
+    .run-btn,
+    .wrapper-speed,
+    .wrapper-result,
+    .code-window,
+    .docs-wrapper {
+        width: 96%;
+        margin: 12px 0 0 2%;
+    }
+
+    .run-btn,
+    .wrapper-speed {
+        height: 80px;
+        line-height: 80px;
+    }
+}
