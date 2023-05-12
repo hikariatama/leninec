@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерфейс учителя</title>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-darcula.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="https://img.icons8.com/emoji/48/null/bear-emoji.png" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/teacher.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="content">
+        <select id="group-picker">
+            {% for group in groups %}
+            <option value="{{ group|e }}">{{ group|e }}</option>
+            {% endfor %}
+        </select>
+
+        <select id="templates">
+            <option value="custom">Своя задача</option>
+            <option value="maths">Базовые математические операции</option>
+            <option value="loop">Циклы</option>
+            <option value="recursion">Рекурсия (числа Фибоначчи)</option>
+            <option value="hard">Комплексная задача (циклы + рекурсия)</option>
+        </select>
+    
+        <div id="task">
+            <pre class="code-window line-numbers"
+                contenteditable="plaintext-only"><code class="language-python"></code></pre>
+        </div>
+    
+        <input type="button" value="Сохранить задание" id="save-task">
+        <br>
+        <input type="button" value="Удалить задание" class="danger" id="delete-task">
+    
+        <ul id="students">
+    
+        </ul>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/components/prism-python.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+        integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/static/teacher.js"></script>
+</body>
+
+</html>

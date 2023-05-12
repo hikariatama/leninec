@@ -32,8 +32,8 @@ logger = logging.getLogger(__name__)
 
 
 class VM:
-    MAX_STACK_SIZE: int = 1000
-    MAX_VALUE: int = 2**31
+    MAX_STACK_SIZE: int = 10**3
+    MAX_VALUE: int = 2**64 - 1
     MAX_CODE_SIZE: int = 2048
     VALID_NUMBERS: set = set(map(str, range(-999, 1000)))
 

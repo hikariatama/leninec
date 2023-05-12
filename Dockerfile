@@ -1,5 +1,6 @@
 FROM python:3.8.5-slim-buster
 ENV GIT_PYTHON_REFRESH=quiet
+ENV LENINEC_DOCKER=1
 
 ENV PIP_NO_CACHE_DIR=1 \
     PYTHONUNBUFFERED=1 \
@@ -8,7 +9,7 @@ ENV PIP_NO_CACHE_DIR=1 \
 WORKDIR /app
 COPY ./requirements.txt /app/requirements.txt
 
-RUN pip install \
+RUN python -m pip install \
     --no-warn-script-location \
     --no-cache-dir \
     --upgrade \

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://img.icons8.com/emoji/48/null/bear-emoji.png" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="page-middle">
+        <h1>Сибирский Лéнинец II</h1>
+        <h2>Авторизация в тестирующей системе</h2>
+        <form action="/login" method="POST" id="login-form" class="login">
+            <input type="text" name="username" id="username" placeholder="Логин" required>
+            <input type="password" name="password" id="password" placeholder="Пароль" required>
+            <input type="submit" value="Войти">
+            <a href="/register"><input type="button" value="У меня нет аккаунта!"></a>
+        </form>
+    </div>
+    <div class="sphere sphere-1"></div>
+    <div class="sphere sphere-2"></div>
+    <div class="sphere sphere-3"></div>
+    <div class="sphere sphere-4"></div>
+    <div class="sphere sphere-5"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+        integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/static/login.js"></script>
+</body>
+
+</html>

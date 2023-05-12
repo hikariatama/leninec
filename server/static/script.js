@@ -60,11 +60,19 @@ function update_res(result) {
 function finish() {
     document.querySelector(".run-btn").classList.remove("disabled");
     document.querySelector(".run-btn").innerHTML = "Evaluate!";
+    running = false;
 }
 
 var inp = "";
+var running = false;
+window.addEventListener('beforeunload', (event) => {
+    if (running) {
+        event.returnValue = `Are you sure you want to leave?`;
+    }
+});
 
 function run(code) {
+    running = true;
     document.querySelector(".result").innerHTML = "leninec@vm:# $ ./run";
     var socket = new WebSocket(SOCKET_URL);
     socket.onopen = (e) => {
@@ -99,7 +107,13 @@ function run(code) {
             inp = event.data.split(" ").slice(1).join(" ");
             update_res(`./run ${inp}<br>`);
         } else if (event.data.startsWith("@o")) {
-            update_res(`./run ${inp}<br>Output: ${event.data.split(" ").slice(1).join(" ")}<br>leninec@vm:# $ `);
+            data = event.data.split(" ").slice(1).join(" ");
+            if (data == "OK") {
+                data = '<span class="green">Все тесты пройдены!</span>';
+                $(".run_btn").addClass("disabled");
+                setTimeout(() => {window.location.reload();}, 3000);
+            }
+            update_res(`./run ${inp}<br>Output: ${data}<br>leninec@vm:# $ `);
         }
     };
 
@@ -159,6 +173,18 @@ document.querySelector(".code-window").addEventListener("keydown", function (e) 
         e.preventDefault();
         document.execCommand("insertHTML", false, "    ");
     }
+    if (!document.querySelector(".code-window .pointer")) {
+        document.querySelector(".code-window").innerHTML = `<div class="pointer"></div>`;
+    }
+    if (!document.querySelector(".code-window code")) {
+        document.querySelector(".code-window").innerHTML += "<code class='language-leninec'></code>";
+    }
+    if (!document.querySelector(".code-window .line-numbers-rows")) {
+        document.querySelector(".code-window code").innerHTML += `<br/><span aria-hidden="true" class="line-numbers-rows" contenteditable="false"><span></span></span>`;
+        Prism.highlightAll();
+    }
+
+    document.querySelector(".code-window .pointer").innerHTML = "";
 });
 
 document.querySelector(".code-window").addEventListener("input", function (e) {
@@ -177,4 +203,12 @@ document.querySelector(".code-window").addEventListener("paste", function (e) {
 document.querySelector(".wrapper-speed select").addEventListener("change", function () {
     localStorage.setItem("speed", document.querySelector(".wrapper-speed select").value);
     document.querySelector(".pointer").style.transitionDuration = { "1": ".1", "2": ".05", "5": ".05", "0": "0", "0.5": ".2", "0.25": ".3" }[this.value] + "s";
+});
+
+$.get("/me", (me) => {
+    if (me.taskstatus == "done") {
+        $(".run-btn").addClass("disabled");
+    }
+}).fail(() => {
+    $(".run-btn").addClass("disabled");
 });

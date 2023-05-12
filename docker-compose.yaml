@@ -1,7 +1,14 @@
-version: '3'
+version: "3"
 services:
-  myservice:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: leninec/latest
+    worker:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: leninec/latest
+        ports:
+            - "2931:2931"
+        volumes:
+            - database:/data
+
+volumes:
+    database:
